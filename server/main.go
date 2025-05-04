@@ -59,10 +59,12 @@ func (s *Server) Serve() {
 		}
 
 		response := protocol.Response{
-			Body: []byte("Hello from server!"),
+			SegmentNumber: 1,
+			Error: nil,
+			Content: "Hello from server!",
 		}
 
-		fmt.Printf("Response to %s:%d :\n    %s\n", string(remoteAddress.IP), remoteAddress.Port, response.Body)
+		fmt.Printf("Response to %s:%d :\n    %s\n", string(remoteAddress.IP), remoteAddress.Port, response.Content)
 		_, err = s.conn.WriteToUDP(response.Encode(), remoteAddress)
 		if err != nil {
 			fmt.Println("Error sending reponse:", err)
